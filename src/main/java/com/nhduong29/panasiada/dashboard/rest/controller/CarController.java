@@ -17,7 +17,7 @@ public class CarController {
 	@Autowired
 	private CarRepository carRepository;
 
-	@GetMapping("/allCars")
+	@GetMapping("/cars")
 	public Page<Car> getAllArticles(Pageable pageable) {
 		return carRepository.findAll(pageable);
 	}
