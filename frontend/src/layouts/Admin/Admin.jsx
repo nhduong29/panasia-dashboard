@@ -133,7 +133,6 @@ class Admin extends React.Component {
             />
             <Switch>{this.getRoutes(routes)}</Switch>
           </div>
-          <li class=""><a class="nav-link" href="/admin/notifications"><i class="tim-icons icon-bell-55"></i><p>dd</p></a></li>
         </div>
       </>
     );
