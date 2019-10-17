@@ -1,12 +1,12 @@
 /*!
 
 =========================================================
-* Black Dashboard React v1.0.0
+* Argon Dashboard React - v1.0.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
+* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 
@@ -16,144 +16,67 @@
 
 */
 import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
-  Collapse,
-  DropdownToggle,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
+  DropdownToggle,
+  Form,
+  FormGroup,
+  InputGroupAddon,
+  InputGroupText,
   Input,
   InputGroup,
-  NavbarBrand,
   Navbar,
-  NavLink,
   Nav,
   Container,
-  Modal
+  Media
 } from "reactstrap";
 
 class AdminNavbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapseOpen: false,
-      
-      color: "navbar-transparent"
-    };
-  }
-  componentDidMount() {
-    window.addEventListener("resize", this.updateColor);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateColor);
-  }
-  // function that adds color white/transparent to the navbar on resize (this is for the collapse)
-  updateColor = () => {
-    if (window.innerWidth < 993 && this.state.collapseOpen) {
-      this.setState({
-        color: "bg-white"
-      });
-    } else {
-      this.setState({
-        color: "navbar-transparent"
-      });
-    }
-  };
-  // this function opens and closes the collapse on small devices
-  toggleCollapse = () => {
-    if (this.state.collapseOpen) {
-      this.setState({
-        color: "navbar-transparent"
-      });
-    } else {
-      this.setState({
-        color: "bg-white"
-      });
-    }
-    this.setState({
-      collapseOpen: !this.state.collapseOpen
-    });
-  };
-
   render() {
     return (
       <>
-        <Navbar
-          className={classNames("navbar-absolute", this.state.color)}
-          expand="lg"
-        >
+        <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
           <Container fluid>
-            <div className="navbar-wrapper">
-              <div
-                className={classNames("navbar-toggle d-inline", {
-                  toggled: this.props.sidebarOpened
-                })}
-              >
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  onClick={this.props.toggleSidebar}
-                >
-                  <span className="navbar-toggler-bar bar1" />
-                  <span className="navbar-toggler-bar bar2" />
-                  <span className="navbar-toggler-bar bar3" />
-                </button>
-              </div>
-              <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                {this.props.brandText}
-              </NavbarBrand>
-            </div>
-            <button
-              aria-expanded={false}
-              aria-label="Toggle navigation"
-              className="navbar-toggler"
-              data-target="#navigation"
-              data-toggle="collapse"
-              id="navigation"
-              type="button"
-              onClick={this.toggleCollapse}
+            <Link
+              className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+              to="/"
             >
-              <span className="navbar-toggler-bar navbar-kebab" />
-              <span className="navbar-toggler-bar navbar-kebab" />
-              <span className="navbar-toggler-bar navbar-kebab" />
-            </button>
-            <Collapse navbar isOpen={this.state.collapseOpen}>
-              <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav>
-                  <DropdownToggle
-                    caret
-                    color="default"
-                    data-toggle="dropdown"
-                    nav
-                    onClick={e => e.preventDefault()}
-                  >
-                    <div className="photo">
-                      <img alt="..." src={require("assets/img/anime3.png")} />
-                    </div>
-                    <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">Log out</p>
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-navbar" right tag="ul">
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Profile</DropdownItem>
-                    </NavLink>
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Settings</DropdownItem>
-                    </NavLink>
-                    <DropdownItem divider tag="li" />
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
-                    </NavLink>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-                <li className="separator d-lg-none" />
-              </Nav>
-            </Collapse>
+              {this.props.brandText}
+            </Link>
+            <Form className="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
+              <FormGroup className="mb-0">
+                <span className="text-sm font-weight-bold">Welcome Duong</span>
+              </FormGroup>
+            </Form>
+            <Nav className="align-items-center d-none d-md-flex" navbar>
+              <UncontrolledDropdown nav>
+                <DropdownToggle className="pr-0" nav>
+                  <Media className="align-items-center">
+                    <span className="avatar avatar-sm rounded-circle">
+                      <img
+                        alt="..."
+                        src={require("assets/img/theme/team-4-800x800.jpg")}
+                      />
+                    </span>
+                    <Media className="ml-2 d-none d-lg-block">
+                      <span className="mb-0 text-sm font-weight-bold">
+                        Jessica Jones
+                      </span>
+                    </Media>
+                  </Media>
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-arrow" right>
+                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                    <i className="ni ni-user-run" />
+                    <span>Logout</span>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
           </Container>
         </Navbar>
       </>
