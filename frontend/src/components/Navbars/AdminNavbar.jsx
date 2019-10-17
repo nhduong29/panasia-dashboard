@@ -34,8 +34,23 @@ import {
   Container,
   Media
 } from "reactstrap";
+import {  ACCESS_TOKEN } from '../../variables/API';
 
 class AdminNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: false
+    };
+    this.handleLogout = this.handleLogout.bind(this); 
+  }
+  handleLogout() {
+    localStorage.removeItem(ACCESS_TOKEN);
+    this.setState({
+      isAuthenticated: false
+    });
+    this.props.history.push("/auth/login");
+  }
   render() {
     return (
       <>
@@ -70,7 +85,7 @@ class AdminNavbar extends React.Component {
                   </Media>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu-arrow" right>
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                  <DropdownItem href="#" onClick={() => this.handleLogout()}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>

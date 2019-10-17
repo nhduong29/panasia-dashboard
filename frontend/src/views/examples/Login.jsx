@@ -30,63 +30,71 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col, Alert
 } from "reactstrap";
-
+import { login, ACCESS_TOKEN } from '../../variables/API';
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      showError : false,
+      errorMessage : '',
+      isAuthenticated: false
+      
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault(); 
+    this.setState({
+      showError :  false,
+      errorMessage : ''
+    })
+    let loginRequest =  {
+      username: this.state.username,
+      password: this.state.password
+    }
+    login(loginRequest)
+    .then(response => {
+        localStorage.setItem(ACCESS_TOKEN, response.token);
+        this.setState(({isAuthenticated: true}));
+        this.props.history.push("/");
+    }).catch(error => {
+        let errorMess ='';         
+        if(error.status === 401) {
+          errorMess =  'User name and password is not correct';
+        } else {
+          errorMess = 'User name and password is not correct';
+        }
+        this.setState({
+          showError :  true,
+          errorMessage :  errorMess,
+        });                                          
+    });
+  }
+
   render() {
     return (
       <>
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
-            <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-3">
-                <small>Sign in with</small>
-              </div>
-              <div className="btn-wrapper text-center">
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("assets/img/icons/common/github.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Github</span>
-                </Button>
-                <Button
-                  className="btn-neutral btn-icon"
-                  color="default"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  <span className="btn-inner--icon">
-                    <img
-                      alt="..."
-                      src={require("assets/img/icons/common/google.svg")}
-                    />
-                  </span>
-                  <span className="btn-inner--text">Google</span>
-                </Button>
-              </div>
-            </CardHeader>
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
+              <h1 className="text-uppercase">Sign in</h1>
+              {this.state.showError && <Alert color="danger"> <strong>{this.state.errorMessage}!</strong></Alert> }
               </div>
-              <Form role="form">
+              <Form role="form" onSubmit={this.handleSubmit} >
                 <FormGroup className="mb-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-email-83" />
+                        <i className="ni ni-circle-08" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
+                    <Input placeholder="Username" type="text" name="username" value={this.state.username} onChange={e => this.setState({ username: e.target.value })} />
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -96,7 +104,7 @@ class Login extends React.Component {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
+                    <Input placeholder="Password" type="password" name="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value })} />
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -113,7 +121,7 @@ class Login extends React.Component {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="button">
+                  <Button className="my-4" color="primary" type="submit" >
                     Sign in
                   </Button>
                 </div>

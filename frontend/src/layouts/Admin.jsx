@@ -27,6 +27,14 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import routes from "routes.js";
 
 class Admin extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state =  {
+      isAuthenticated: false
+    }
+  }
+  
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -47,6 +55,7 @@ class Admin extends React.Component {
       }
     });
   };
+
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
       if (
@@ -62,6 +71,7 @@ class Admin extends React.Component {
   render() {
     return (
       <>
+      {this.state.isAuthenticated && <div>
         <Sidebar
           {...this.props}
           routes={routes}
@@ -81,6 +91,9 @@ class Admin extends React.Component {
             <AdminFooter />
           </Container>
         </div>
+      </div>}
+        
+      
       </>
     );
   }

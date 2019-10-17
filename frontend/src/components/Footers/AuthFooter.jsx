@@ -30,13 +30,12 @@ class Login extends React.Component {
             <Row className="align-items-center justify-content-xl-between">
               <Col xl="6">
                 <div className="copyright text-center text-xl-left text-muted">
-                  © 2018{" "}
+                  © 2019{" "}
                   <a
                     className="font-weight-bold ml-1"
-                    href="https://www.creative-tim.com?ref=adr-auth-footer"
-                    target="_blank"
+                    href="#"
                   >
-                    Creative Tim
+                    Creative Tim & Modify by Duong Nguyen
                   </a>
                 </div>
               </Col>
@@ -44,36 +43,19 @@ class Login extends React.Component {
                 <Nav className="nav-footer justify-content-center justify-content-xl-end">
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com?ref=adr-auth-footer"
-                      target="_blank"
+                      href="#"
                     >
-                      Creative Tim
+                      Home
                     </NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com/presentation?ref=adr-auth-footer"
-                      target="_blank"
+                      href="#"
                     >
                       About Us
                     </NavLink>
                   </NavItem>
-                  <NavItem>
-                    <NavLink
-                      href="http://blog.creative-tim.com?ref=adr-auth-footer"
-                      target="_blank"
-                    >
-                      Blog
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md?ref=adr-auth-footer"
-                      target="_blank"
-                    >
-                      MIT License
-                    </NavLink>
-                  </NavItem>
+                  
                 </Nav>
               </Col>
             </Row>
