@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhduong29.panasiada.dashboard.entity.Car;
@@ -25,5 +26,11 @@ public class CarController {
 	@GetMapping("/{brand}")
 	public Page<Car> getAllByCategory(@PathVariable String brand, Pageable pageable) {
 		return carRepository.findByBrand(brand, pageable);
+	}
+
+	@GetMapping("/filter")
+	public Page<Car> getTotalReviewByLevelAndYear(@RequestParam("brand") String brand,
+			@RequestParam("color") String color, Pageable pageable) {
+		return carRepository.filterByBrandAndColor(brand, color, pageable);
 	}
 }

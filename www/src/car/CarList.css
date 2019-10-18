@@ -1,0 +1,14 @@
+.no-polls-found {
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;    
+}
+
+.cars-container, .ant-table-wrapper {
+    margin: 0 auto;    
+    margin-top: 20px; 
+}
+
+.ant-select{
+    width: 200px !important;
+}
