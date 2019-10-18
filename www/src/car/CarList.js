@@ -42,6 +42,8 @@ class CarList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            brandFilter: '',
+            colorFilter: '',
             cars: [],
             page: 0,
             pageSize: 10,
@@ -51,11 +53,18 @@ class CarList extends Component {
             isLoading: false
         };
         this.loadCarList = this.loadCarList.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onBrandFilterChange = this.onBrandFilterChange.bind(this);
+        this.onColorFilterChange = this.onColorFilterChange.bind(this);
     }
 
-    loadCarList(page = 0, size = CAR_LIST_SIZE) {
+    loadCarList(brand='', color='', page = 0, size = CAR_LIST_SIZE) {
         let promise;
-        promise = getCars(page, size);
+        if(brand == '' || color == ''){
+            promise = getCars(page, size);
+        }else{
+            promise = filterCars(brand, color, page, size);
+        }
         if(!promise) {
             return;
         }
@@ -84,12 +93,19 @@ class CarList extends Component {
     }
 
     changePage = page => {
-        console.log("page" +page);
         this.loadCarList(page, CAR_LIST_SIZE);
     };
 
-    onFilterChange(value) {
-        console.log(`selected ${value}`);
+    onBrandFilterChange(value) {
+        this.setState({
+            brandFilter: value
+        })
+    }
+
+    onColorFilterChange(value) {
+        this.setState({
+            colorFilter: value
+        })
     }
       
     onFilterBlur() {
@@ -102,6 +118,12 @@ class CarList extends Component {
       
     onFilterSearch(val) {
         console.log('search:', val);
+    }
+
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.loadCarList(this.state.brandFilter,this.state.colorFilter, 0, CAR_LIST_SIZE);
     }
 
     componentDidMount() {
@@ -127,14 +149,33 @@ class CarList extends Component {
     render() {
         const {cars, pageSize, totalElements} = this.state;
         return (
-            <div className="cars-container">
+            this.props.isAuthenticated && <div className="cars-container">
                 <Form layout="inline" onSubmit={this.handleSubmit}>
                     <Form.Item>
-                        <Select name="color"
+                        <Select name="brand"
                             showSearch
                             placeholder="Filter with color"
                             optionFilterProp="children"
-                            onChange={this.onFilterChange}
+                            onChange={this.onBrandFilterChange}
+                            onFocus={this.onFilterFocus}
+                            onBlur={this.onFilterBlur}
+                            onSearch={this.onFilterSearch}
+                            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }>
+                            <Option value="JAGUAR">JAGUAR</Option>
+                            <Option value="HONDA">HONDA</Option>
+                            <Option value="RENAULT">RENAULT</Option>
+                            <Option value="BMW">BMW</Option>
+                            <Option value="VOLVO">VOLVO</Option>
+                            <Option value="AUDI">AUDI</Option>
+                            <Option value="MERCEDES">MERCEDES</Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item>
+                        <Select name="color" 
+                            showSearch
+                            placeholder="Filter with color"
+                            optionFilterProp="children"
+                            onChange={this.onColorFilterChange}
                             onFocus={this.onFilterFocus}
                             onBlur={this.onFilterBlur}
                             onSearch={this.onFilterSearch}
@@ -142,21 +183,22 @@ class CarList extends Component {
                             <Option value="Orange">Orange</Option>
                             <Option value="Aquamarine">Aquamarine</Option>
                             <Option value="Maroon">Maroon</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item>
-                        <Select name="brand"
-                            showSearch
-                            placeholder="Filter with color"
-                            optionFilterProp="children"
-                            onChange={this.onFilterChange}
-                            onFocus={this.onFilterFocus}
-                            onBlur={this.onFilterBlur}
-                            onSearch={this.onFilterSearch}
-                            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }>
-                            <Option value="HONDA">HONDA</Option>
-                            <Option value="AUDI">AUDI</Option>
-                            <Option value="BMW">BMW</Option>
+                            <Option value="Red">Red</Option>
+                            <Option value="Crimson">Crimson</Option>
+                            <Option value="Goldenrod">Goldenrod</Option>
+                            <Option value="Mauv">Mauv</Option>
+                            <Option value="Indigo">Indigo</Option>
+                            <Option value="Khaki">Khaki</Option>
+                            <Option value="Fuscia">Fuscia</Option>
+                            <Option value="Blue">Blue</Option>
+                            <Option value="Teal">Teal</Option>
+                            <Option value="Green">Green</Option>
+                            <Option value="Purple">Purple</Option>
+                            <Option value="Violet">Violet</Option>
+                            <Option value="Puce">Puce</Option>
+                            <Option value="Pink">Pink</Option>
+                            <Option value="Yellow">Yellow</Option>
+                            <Option value="Turquoise">Turquoise</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item>

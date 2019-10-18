@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../../util/APIUtils';
+import { signup, checkUsernameAvailability } from '../../util/APIUtils';
 import './Signup.css';
 import { Link } from 'react-router-dom';
 import { 
@@ -198,8 +198,8 @@ class Signup extends Component {
         }
 
         return {
-            validateStatus: null,
-            errorMsg: null
+            validateStatus: 'success',
+            errorMsg: null,
         }
     }
 
@@ -216,8 +216,8 @@ class Signup extends Component {
             }
         } else {
             return {
-                validateStatus: null,
-                errorMsg: null
+                validateStatus: 'success',
+                errorMsg: null,
             }
         }
     }
