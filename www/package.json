@@ -5,6 +5,7 @@
   "proxy": "http://localhost:8080",
   "dependencies": {
     "antd": "^3.2.2",
+    "dotenv": "^8.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-js-pagination": "^3.0.2",
