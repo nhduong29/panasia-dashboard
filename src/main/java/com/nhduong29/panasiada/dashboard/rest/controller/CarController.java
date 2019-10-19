@@ -26,7 +26,7 @@ public class CarController {
 
 	@GetMapping("/{brand}")
 	public Page<Car> getAllByCategory(@PathVariable String brand, Pageable pageable) {
-		return carRepository.findByBrand(brand, pageable);
+		return carRepository.findByBrand(BrandEnum.valueOf(brand), pageable);
 	}
 
 	@GetMapping("/filter")
