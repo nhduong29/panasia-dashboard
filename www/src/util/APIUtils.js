@@ -36,9 +36,19 @@ export function getCars(page, size) {
 export function filterCars(brand, color, page, size) {
     page = page || 0;
     size = size || CAR_LIST_SIZE;
-    
+    var queryOfBrand = "brand=";
+    var queryOfColor = "&color=";
+    if(brand == ''){
+        queryOfBrand = "";
+        queryOfColor = "color=";
+    }
+
+    if(color == ''){
+        queryOfColor = "";
+    }
+
     return request({
-        url: API_BASE_URL + "/car/filter?brand=" + brand + "&color=" + color + "&page=" + page + "&size=" + size,
+        url: API_BASE_URL + "/car/filter?" + queryOfBrand + brand + queryOfColor + color + "&page=" + page + "&size=" + size,
         method: 'GET'
     });
 }

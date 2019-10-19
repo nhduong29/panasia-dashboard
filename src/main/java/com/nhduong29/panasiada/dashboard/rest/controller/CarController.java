@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nhduong29.panasiada.dashboard.entity.Car;
+import com.nhduong29.panasiada.dashboard.enums.BrandEnum;
 import com.nhduong29.panasiada.dashboard.repo.CarRepository;
 
 @RestController
@@ -29,8 +30,18 @@ public class CarController {
 	}
 
 	@GetMapping("/filter")
-	public Page<Car> getTotalReviewByLevelAndYear(@RequestParam("brand") String brand,
-			@RequestParam("color") String color, Pageable pageable) {
+	public Page<Car> getTotalReviewByLevelAndYear(@RequestParam(value = "brand", required = false) String brand,
+			@RequestParam(value = "color", required = false) String color, Pageable pageable) {
+		if (brand == null && color == null) {
+			return carRepository.findAll(pageable);
+		} else {
+			if (brand == null) {
+				return carRepository.findByColor(color, pageable);
+			}
+			if (color == null) {
+				return carRepository.findByBrand(BrandEnum.valueOf(brand), pageable);
+			}
+		}
 		return carRepository.filterByBrandAndColor(brand, color, pageable);
 	}
 }

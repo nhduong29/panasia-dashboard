@@ -60,7 +60,7 @@ class CarList extends Component {
 
     loadCarList(brand='', color='', page = 0, size = CAR_LIST_SIZE) {
         let promise;
-        if(brand == '' || color == ''){
+        if(brand == '' && color == ''){
             promise = getCars(page, size);
         }else{
             promise = filterCars(brand, color, page, size);
