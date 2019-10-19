@@ -93,7 +93,7 @@ class CarList extends Component {
     }
 
     changePage = page => {
-        this.loadCarList(page, CAR_LIST_SIZE);
+        this.loadCarList(this.state.brandFilter,this.state.colorFilter,page, CAR_LIST_SIZE);
     };
 
     onBrandFilterChange(value) {
