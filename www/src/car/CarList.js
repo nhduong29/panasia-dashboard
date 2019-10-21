@@ -161,6 +161,7 @@ class CarList extends Component {
                             onBlur={this.onFilterBlur}
                             onSearch={this.onFilterSearch}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }>
+                            <Option value="">All</Option>
                             <Option value="JAGUAR">JAGUAR</Option>
                             <Option value="HONDA">HONDA</Option>
                             <Option value="RENAULT">RENAULT</Option>
@@ -180,6 +181,7 @@ class CarList extends Component {
                             onBlur={this.onFilterBlur}
                             onSearch={this.onFilterSearch}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }>
+                            <Option value="">All</Option>
                             <Option value="Orange">Orange</Option>
                             <Option value="Aquamarine">Aquamarine</Option>
                             <Option value="Maroon">Maroon</Option>
